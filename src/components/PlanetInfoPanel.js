@@ -4,12 +4,12 @@ import '../styles/PlanetInfoPanel.css';
 const formatNumber = (num) => {
   if (num === undefined || num === null) return 'N/A';
   
-  // For large numbers, use scientific notation
+ 
   if (num >= 1e9 || num <= -1e9 || (num !== 0 && Math.abs(num) < 0.001)) {
     return num.toExponential(2);
   }
   
-  // For smaller numbers, use commas for thousands separators
+ 
   return num.toLocaleString(undefined, { maximumFractionDigits: 2 });
 };
 
@@ -18,12 +18,12 @@ const PlanetInfoPanel = ({ selectedBody, onClose, onStartLanding }) => {
   
   if (!selectedBody) return null;
   
-  // For reference, convert time units
+  
   const rotationInEarthDays = selectedBody.rotationPeriod 
     ? (selectedBody.rotationPeriod / 24).toFixed(2) 
     : null;
     
-  // Format orbital period for better readability
+ 
   const formatOrbitalPeriod = (days) => {
     if (!days) return 'N/A';
     

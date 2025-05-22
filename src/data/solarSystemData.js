@@ -1,18 +1,18 @@
 import { G, SCALE_FACTOR } from '../utils/physics';
 
-// Constants for calculations
-const AU = 1.496e11; // 1 Astronomical Unit in meters
-const EARTH_RADIUS = 6371; // Earth radius in km
-const SUN_RADIUS = 695700; // Sun radius in km
+// Some handy constants for space distances and sizes
+const AU = 1.496e11; // 1 AU in meters
+const EARTH_RADIUS = 6371; // Earth's radius in km
+const SUN_RADIUS = 695700; // Sun's radius in km
 
-// Calculate orbital velocity for any distance from the sun
+// Need to know how fast something should go to stay in orbit? This does the trick
 const calculateOrbitalVelocity = (centralMass, distanceMeters) => {
   return Math.sqrt((G * centralMass) / distanceMeters);
 };
 
-// Solar system data with planetary bodies, their properties, and moons
+// Main solar system data
 const solarSystemData = {
-  // Main celestial bodies
+  // We'll start with the big stuff: the main planets and the sun
   bodies: [
     {
       id: 'sun',
@@ -20,12 +20,12 @@ const solarSystemData = {
       type: 'star',
       position: [0, 0, 0],
       velocity: [0, 0, 0],
-      mass: 1.989e30, // kg
-      radius: 0.12, // Scaled size for visualization
-      realRadius: SUN_RADIUS, // km
+      mass: 1.989e30, // Mass in kg
+      radius: 0.12, // Scaled for visualization
+      realRadius: SUN_RADIUS, // Actual radius in km
       color: '#ffff00',
       temperature: 5778, // Kelvin
-      rotationPeriod: 609.12, // Hours (25.38 days at equator)
+      rotationPeriod: 609.12, // Hours
       fixed: true,
       description: 'The Sun is the star at the center of the Solar System. It is a nearly perfect sphere of hot plasma, heated to incandescence by nuclear fusion reactions in its core.'
     },
@@ -34,19 +34,19 @@ const solarSystemData = {
       name: 'Mercury',
       type: 'planet',
       position: [0.39 * AU / SCALE_FACTOR, 0, 0],
-      distanceFromSun: 0.39 * AU, // meters
+      distanceFromSun: 0.39 * AU, // Mercury is basically hugging the sun (in meters)
       velocity: [0, calculateOrbitalVelocity(1.989e30, 0.39 * AU), 0],
-      mass: 3.3011e23, // kg
-      radius: 0.03, // Scaled size for visualization
-      realRadius: 2439.7, // km
+      mass: 3.3011e23, // Tiny compared to the big guys (kg)
+      radius: 0.03, // Scaled for the sim so you can actually see it
+      realRadius: 2439.7, // Real radius in km
       color: '#bbb', 
-      temperature: 440, // Kelvin (average)
-      rotationPeriod: 1407.6, // Hours (58.65 days)
-      orbitalPeriod: 88, // days
-      axialTilt: 0.034, // degrees
+      temperature: 440, // Toasty! (Kelvin)
+      rotationPeriod: 1407.6, // Hours (almost 59 days, yikes)
+      orbitalPeriod: 88, // Days to go around the sun
+      axialTilt: 0.034, // Basically no tilt, just spinning straight
       fixed: false,
       path: [],
-      moons: [], // Mercury has no moons
+      moons: [], // Mercury has no moons. It's just out there alone
       description: 'Mercury is the smallest and innermost planet in the Solar System. Its orbit around the Sun takes 87.97 Earth days, the shortest of all the planets in the Solar System.'
     },
     {
@@ -54,19 +54,19 @@ const solarSystemData = {
       name: 'Venus',
       type: 'planet',
       position: [0.72 * AU / SCALE_FACTOR, 0, 0],
-      distanceFromSun: 0.72 * AU, // meters
+      distanceFromSun: 0.72 * AU, // Venus is next in line (meters)
       velocity: [0, calculateOrbitalVelocity(1.989e30, 0.72 * AU), 0],
-      mass: 4.8675e24, // kg
-      radius: 0.04, // Scaled size for visualization
-      realRadius: 6051.8, // km
+      mass: 4.8675e24, // Heavier than Mercury, but still not a gas giant (kg)
+      radius: 0.04, // Scaled for the sim
+      realRadius: 6051.8, // Real radius in km
       color: '#e6e6b8', 
-      temperature: 737, // Kelvin (average)
-      rotationPeriod: -5832.5, // Hours (243.02 days, negative due to retrograde rotation)
-      orbitalPeriod: 225, // days
-      axialTilt: 177.36, // degrees (retrograde rotation)
+      temperature: 737, // Venus is HOT (Kelvin)
+      rotationPeriod: -5832.5, // Hours (retrograde, so it's negative, spinning backwards!)
+      orbitalPeriod: 225, // Days to orbit the sun
+      axialTilt: 177.36, // Venus is basically upside down
       fixed: false,
       path: [],
-      moons: [], // Venus has no moons
+      moons: [], // Venus has no moons either. What gives?
       atmosphere: 'Carbon dioxide (96%), Nitrogen (3%)',
       description: 'Venus is the second planet from the Sun. It is named after the Roman goddess of love and beauty. Venus is the second-brightest natural object in the night sky after the Moon.'
     },
@@ -75,29 +75,29 @@ const solarSystemData = {
       name: 'Earth',
       type: 'planet',
       position: [AU / SCALE_FACTOR, 0, 0],
-      distanceFromSun: AU, // meters
+      distanceFromSun: AU, // Earth is 1 AU from the sun (by definition, go Earth!)
       velocity: [0, calculateOrbitalVelocity(1.989e30, AU), 0],
-      mass: 5.972e24, // kg
-      radius: 0.05, // Scaled size for visualization
-      realRadius: EARTH_RADIUS, // km
+      mass: 5.972e24, // Our home, not too big, not too small (kg)
+      radius: 0.05, // Scaled for the sim
+      realRadius: EARTH_RADIUS, // Real radius in km
       color: '#0077ff',
-      temperature: 288, // Kelvin (average)
-      rotationPeriod: 23.93, // Hours
-      orbitalPeriod: 365.26, // days
-      axialTilt: 23.44, // degrees
+      temperature: 288, // Average temp in Kelvin (pretty comfy)
+      rotationPeriod: 23.93, // Hours in a day
+      orbitalPeriod: 365.26, // Days in a year
+      axialTilt: 23.44, // That's why we get seasons
       fixed: false,
       path: [],
       moons: [
         {
           id: 'moon',
           name: 'Moon',
-          distance: 0.1, // Scaled distance for visualization
-          realDistance: 384400, // km from Earth
-          size: 0.015, // Scaled size for visualization
-          realRadius: 1737.4, // km
-          mass: 7.342e22, // kg
-          orbitSpeed: 0.005, // Scaled orbital speed for animation
-          orbitPeriod: 27.32, // days
+          distance: 0.1, // Scaled distance for the sim
+          realDistance: 384400, // Real distance in km
+          size: 0.015, // Scaled size
+          realRadius: 1737.4, // Real radius in km
+          mass: 7.342e22, // Not super massive, but still tugs on us (kg)
+          orbitSpeed: 0.005, // For animation
+          orbitPeriod: 27.32, // Days to go around Earth
           description: 'The Moon is Earth\'s only natural satellite. It is the fifth-largest satellite in the Solar System.'
         }
       ],

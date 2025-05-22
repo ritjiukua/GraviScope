@@ -4,7 +4,7 @@ import * as THREE from 'three';
 import { useLoader } from '@react-three/fiber';
 import { TextureLoader } from 'three/src/loaders/TextureLoader';
 
-// Optimized planet component that supports both textured and wireframe visualization modes
+// Okay, so here's the planet component. I want it to look cool, but also not kill my computer if I'm zoomed out.
 const OptimizedPlanet = ({ 
   body, 
   position, 
@@ -15,15 +15,15 @@ const OptimizedPlanet = ({
   ringParams = null,
   moons = []
 }) => {
-  // Reference to the mesh
+  // Gotta keep a handle on the mesh so I can mess with it later
   const meshRef = useRef();
   const ringsRef = useRef();
   
-  // State for hover and distance to camera
+  // Just tracking if the mouse is hovering and how far away the camera is
   const [hovered, setHovered] = useState(false);
   const [distanceToCamera, setDistanceToCamera] = useState(0);
   
-  // Update distance to camera each frame for LOD
+  // Every frame, let's check how far the camera is. LOD magic!
   useFrame(({ camera }) => {
     if (meshRef.current) {
       const dist = camera.position.distanceTo(meshRef.current.position);
@@ -31,23 +31,23 @@ const OptimizedPlanet = ({
     }
   });
   
-  // Determine detail level based on distance and performance settings
+  // How much detail do we actually need? Let's not go overboard if we don't have to
   const getDetailLevel = () => {
     const baseLevel = performanceSettings?.qualityLevel || 'medium';
     
-    // Apply distance-based LOD with more conservative segment counts
+    // If you're way out there, let's keep it simple
     if (distanceToCamera > 40) {
-      return 'low'; // Far objects always low detail
+      return 'low'; // Far away? Eh, who needs detail
     } else if (distanceToCamera > 20) {
-      // Medium distance objects get lower quality on low-end devices
+      // Potato mode if needed, otherwise medium
       return baseLevel === 'low' ? 'low' : 'medium';
     } else {
-      // Close objects get medium quality on low-end devices, high on others
+      // Up close and personal? Crank it up (unless your PC says no)
       return baseLevel === 'low' ? 'medium' : 'high';
     }
   };
   
-  // Get geometry segments based on detail level and object size
+  // Segments = smoothness. More segments = rounder planet, but also more work for the GPU
   const segments = useMemo(() => {
     const detailLevel = getDetailLevel();
     const baseSizeMultiplier = body.radius * 10;
@@ -61,10 +61,10 @@ const OptimizedPlanet = ({
     }
   }, [getDetailLevel(), body.radius]);
   
-  // Load texture based on body type
+  // Time to pick a texture. This is where the planet gets its personality
   const texture = useMemo(() => {
     try {
-      // Default textures for different body types
+      // I've got a bunch of textures for different planet types. Let's see what fits
       let texturePath;
       
       if (body.id === 'sun') {
@@ -86,7 +86,7 @@ const OptimizedPlanet = ({
           default: texturePath = '/textures/gas_giant.jpg';
         }
       } else {
-        // Fallback texture
+        // No idea? Just slap on the default
         texturePath = '/textures/default.jpg';
       }
       
@@ -97,24 +97,24 @@ const OptimizedPlanet = ({
     }
   }, [body.id, body.type]);
   
-  // Set up material based on body type
+  // Materials! Sun glows, planets get their fancy skins, everything else gets a color
   const material = useMemo(() => {
     if (body.id === 'sun') {
-      // Emissive material for the sun
+      // Sun = big yellow ball of light
       return new THREE.MeshBasicMaterial({
         color: body.color || '#ffff00',
         emissive: body.color || '#ffff00',
         emissiveIntensity: 0.8
       });
     } else if (texture) {
-      // Textured material for planets
+      // Planets get their cool textures
       return new THREE.MeshStandardMaterial({
         map: texture,
         metalness: 0.2,
         roughness: 0.8
       });
     } else {
-      // Fallback colored material
+      // If all else fails, just give it a color and call it a day
       return new THREE.MeshStandardMaterial({
         color: body.color || '#aaaaaa',
         metalness: 0.2,
@@ -123,7 +123,7 @@ const OptimizedPlanet = ({
     }
   }, [body.id, body.color, texture]);
   
-  // Scale up slightly when selected
+  // If you click a planet, let's make it a bit bigger so you know it's special
   useEffect(() => {
     if (meshRef.current) {
       const scale = selected ? 1.05 : 1.0;
@@ -131,17 +131,17 @@ const OptimizedPlanet = ({
     }
   }, [selected]);
   
-  // Rotate the planet slowly
+  // Planets spin, rings tilt. Because why not?
   useFrame(() => {
     if (meshRef.current) {
       meshRef.current.rotation.y += 0.001;
     }
     if (ringsRef.current) {
-      ringsRef.current.rotation.x = 0.5; // Tilt the rings
+      ringsRef.current.rotation.x = 0.5; // Saturn's rings are just showing off
     }
   });
 
-  // Handle click event more responsively
+  // Clicks should feel instant. No lag allowed!
   const handleClick = (e) => {
     e.stopPropagation();
     onClick();
@@ -149,7 +149,7 @@ const OptimizedPlanet = ({
   
   return (
     <group position={position}>
-      {/* Main planet sphere */}
+      {/* The main planet sphere. This is the main event! */}
       <mesh
         ref={meshRef}
         onClick={handleClick}
@@ -162,7 +162,7 @@ const OptimizedPlanet = ({
         <sphereGeometry args={[body.radius, segments, segments]} />
         <primitive object={material} />
         
-        {/* Selection indicator */}
+        {/* If you picked this planet, let's give it a little glow */}
         {selected && (
           <mesh>
             <sphereGeometry args={[body.radius * 1.15, 16, 16]} />
@@ -176,7 +176,7 @@ const OptimizedPlanet = ({
         )}
       </mesh>
       
-      {/* Rings for planets that have them (like Saturn) */}
+      {/* Got rings? Show 'em off! */}
       {hasRings && (
         <mesh ref={ringsRef} onClick={handleClick}>
           <ringGeometry 
@@ -195,12 +195,12 @@ const OptimizedPlanet = ({
         </mesh>
       )}
       
-      {/* Planet moons */}
+      {/* Moons! But if they're tiny and far away, let's not bother */}
       {moons && moons.map((moon, index) => {
-        // Skip rendering small moons at large distances for performance
+        // If the moon is basically a pixel and super far, skip it
         if (distanceToCamera > 50 && moon.size < 0.05) return null;
         
-        // Calculate orbital position
+        // Where's the moon right now? Let's spin it around its planet
         const angle = (Date.now() * moon.orbitSpeed * 0.0001) % (Math.PI * 2);
         const x = moon.distance * Math.cos(angle);
         const z = moon.distance * Math.sin(angle);
