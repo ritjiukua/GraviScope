@@ -1,0 +1,560 @@
+/* Simulator container styles */
+.simulator-container {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  width: 100vw;
+  background-color: #050520;
+  color: #ffffff;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Canvas container styles */
+.canvas-container {
+  flex: 2;
+  height: 100%;
+  position: relative;
+}
+
+/* Info panel styles */
+.info-panel {
+  flex: 1;
+  padding: 2rem;
+  background-color: rgba(0, 0, 20, 0.8);
+  overflow-y: auto;
+  box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
+  max-width: 400px;
+}
+
+/* Equation styles */
+.equations {
+  margin: 2rem 0;
+  padding: 1rem;
+  background-color: rgba(15, 15, 40, 0.5);
+  border-radius: 8px;
+  border-left: 4px solid #3498db;
+}
+
+.equation {
+  margin: 1rem 0;
+  padding: 1rem;
+  background-color: rgba(0, 0, 30, 0.3);
+  border-radius: 4px;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.equation-text {
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+/* Simulation info styles */
+.simulation-info {
+  margin: 2rem 0;
+  padding: 1rem;
+  background-color: rgba(15, 15, 40, 0.5);
+  border-radius: 8px;
+  border-left: 4px solid #e74c3c;
+}
+
+/* Color dot for object legend */
+.color-dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+/* Heading styles */
+h2 {
+  margin-top: 0;
+  margin-bottom: 2rem;
+  color: #3498db;
+  text-align: center;
+  font-size: 2rem;
+}
+
+h3 {
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  color: #f39c12;
+  font-size: 1.4rem;
+}
+
+/* List styles */
+ul {
+  list-style-type: none;
+  padding-left: 0.5rem;
+}
+
+li {
+  margin-bottom: 0.8rem;
+  line-height: 1.5;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .simulator-container {
+    flex-direction: column;
+  }
+  
+  .canvas-container {
+    flex: 1;
+    height: 60vh;
+  }
+  
+  .info-panel {
+    flex: none;
+    max-width: 100%;
+    height: 40vh;
+  }
+}
+
+.gravity-simulator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: #000;
+}
+
+/* UI element container to ensure proper z-indexing */
+.ui-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 100;
+}
+
+.ui-container > * {
+  pointer-events: auto;
+}
+
+/* Simulator UI container */
+.simulator-ui-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 100;
+}
+
+.simulator-ui-container > * {
+  pointer-events: auto;
+}
+
+/* Guide button - repositioned */
+.guide-button {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  background: rgba(10, 25, 47, 0.9);
+  border: 1px solid rgba(100, 180, 255, 0.6);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  z-index: 110;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.guide-button:hover {
+  background: rgba(10, 25, 47, 0.95);
+  border-color: rgba(100, 180, 255, 0.8);
+}
+
+/* Planet Explorer - repositioned */
+.planet-explorer {
+  position: fixed;
+  top: 60px;
+  left: 15px;
+  background: rgba(10, 25, 47, 0.9);
+  border: 1px solid rgba(100, 180, 255, 0.6);
+  border-radius: 8px;
+  color: white;
+  padding: 15px;
+  width: 220px;
+  z-index: 110;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+}
+
+.planet-explorer h3 {
+  margin-top: 0;
+  color: #64b5f6;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.explorer-help {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.planet-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.planet-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.planet-item:hover {
+  background: rgba(100, 180, 255, 0.3);
+}
+
+.planet-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+/* Overlay controls container */
+.overlay-controls {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 110;
+}
+
+.overlay-controls > * {
+  pointer-events: auto;
+}
+
+/* Performance Optimizations */
+/* Use hardware acceleration for animations */
+.planet-item, .guide-button, .guide-controls button {
+  transform: translateZ(0); /* Force GPU acceleration */
+}
+
+/* Make sure planet info panels appear above the canvas */
+.planet-info-panel {
+  z-index: 120; 
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  background: rgba(10, 25, 47, 0.95);
+  border: 1px solid rgba(100, 180, 255, 0.6);
+}
+
+/* Ensure control panels are properly layered */
+.control-panel, .view-modes-panel {
+  z-index: 110;
+  background: rgba(10, 25, 47, 0.95);
+  border: 1px solid rgba(100, 180, 255, 0.6);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+}
+
+/* Navigation Guide */
+.navigation-guide {
+  position: absolute;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.guide-content {
+  background: rgba(10, 25, 47, 0.9);
+  border: 1px solid rgba(100, 180, 255, 0.6);
+  border-radius: 8px;
+  color: white;
+  padding: 20px;
+  width: 320px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(5px);
+  pointer-events: auto;
+}
+
+.guide-content h3 {
+  margin-top: 0;
+  color: #64b5f6;
+  font-size: 1.2rem;
+}
+
+.guide-content p {
+  white-space: pre-line;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.guide-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.guide-controls button {
+  background: rgba(100, 180, 255, 0.2);
+  border: 1px solid rgba(100, 180, 255, 0.4);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.guide-controls button:hover {
+  background: rgba(100, 180, 255, 0.4);
+}
+
+.guide-controls button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.guide-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 20px;
+  cursor: pointer;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.guide-close:hover {
+  color: white;
+}
+
+/* Responsive adjustments for UI elements */
+@media (max-width: 1200px) {
+  /* Adjust layout for medium screens */
+  .planet-explorer {
+    width: 180px;
+  }
+  
+  .control-panel, .view-modes-panel {
+    width: 220px;
+  }
+}
+
+@media (max-width: 960px) {
+  /* Stack controls for smaller screens */
+  .planet-explorer {
+    top: auto;
+    bottom: 15px;
+    left: 15px;
+    width: 160px;
+    max-height: 200px;
+  }
+  
+  .control-panel {
+    right: 15px;
+    bottom: 15px;
+    left: auto;
+    top: auto;
+  }
+  
+  .view-modes-panel {
+    right: 15px;
+    top: 15px;
+    width: 220px;
+  }
+  
+  .planet-info-panel {
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+    max-height: 80vh;
+    width: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Mobile layout */
+  .planet-explorer {
+    width: 140px;
+    font-size: 13px;
+  }
+  
+  .guide-button {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+  
+  .landing-visualization {
+    width: 95%;
+    height: 95vh;
+  }
+}
+
+/* Landing Visualization */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.landing-visualization {
+  width: 90%;
+  max-width: 900px;
+  height: 85vh;
+  background: rgba(10, 25, 47, 0.95);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 0 30px rgba(100, 180, 255, 0.3);
+  border: 1px solid rgba(100, 180, 255, 0.4);
+}
+
+.landing-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  border-bottom: 1px solid rgba(100, 180, 255, 0.4);
+}
+
+.landing-header h3 {
+  margin: 0;
+  color: #64b5f6;
+  font-size: 1.4rem;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+}
+
+.close-button:hover {
+  color: white;
+}
+
+.landing-visualization canvas {
+  flex: 1;
+}
+
+.landing-controls {
+  padding: 20px;
+  border-top: 1px solid rgba(100, 180, 255, 0.4);
+  background: rgba(0, 10, 30, 0.5);
+}
+
+.landing-phase {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.phase-indicator {
+  width: 80px;
+  text-align: center;
+  padding: 8px 0;
+  background: rgba(100, 180, 255, 0.1);
+  border-radius: 4px;
+  color: white;
+  position: relative;
+  font-size: 14px;
+}
+
+.phase-indicator.active {
+  background: rgba(100, 180, 255, 0.3);
+  color: white;
+  font-weight: bold;
+}
+
+.phase-indicator.completed {
+  background: rgba(100, 255, 180, 0.2);
+}
+
+.phase-line {
+  height: 2px;
+  width: 40px;
+  background: rgba(100, 180, 255, 0.4);
+}
+
+.landing-stats {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 20px;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-label {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 5px;
+}
+
+.stat-value {
+  font-size: 16px;
+  color: white;
+  font-weight: bold;
+}
+
+.restart-button {
+  display: block;
+  margin: 0 auto;
+  padding: 10px 20px;
+  background: rgba(100, 180, 255, 0.2);
+  color: white;
+  border: 1px solid rgba(100, 180, 255, 0.4);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.2s ease;
+}
+
+.restart-button:hover {
+  background: rgba(100, 180, 255, 0.4);
+} 

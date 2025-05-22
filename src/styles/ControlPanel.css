@@ -1,0 +1,201 @@
+.control-panel {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: rgba(10, 10, 40, 0.8);
+  padding: 15px;
+  border-radius: 10px;
+  width: 250px;
+  color: white;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  z-index: 100;
+  border: 1px solid rgba(100, 149, 237, 0.3);
+}
+
+.control-panel h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #3498db;
+  font-size: 18px;
+  text-align: center;
+  border-bottom: 1px solid rgba(52, 152, 219, 0.3);
+  padding-bottom: 8px;
+}
+
+.control-group {
+  margin-bottom: 15px;
+}
+
+.control-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+  color: #f39c12;
+}
+
+.slider-container {
+  display: flex;
+  align-items: center;
+}
+
+.slider-container input {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.slider-container span {
+  min-width: 35px;
+  text-align: right;
+  font-size: 14px;
+}
+
+.control-button {
+  background-color: #2980b9;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  margin-right: 8px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.control-button:hover {
+  background-color: #3498db;
+}
+
+.control-button.play {
+  background-color: #27ae60;
+}
+
+.control-button.play:hover {
+  background-color: #2ecc71;
+}
+
+.control-button.pause {
+  background-color: #c0392b;
+}
+
+.control-button.pause:hover {
+  background-color: #e74c3c;
+}
+
+.control-button.add {
+  background-color: #8e44ad;
+}
+
+.control-button.add:hover {
+  background-color: #9b59b6;
+}
+
+select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 5px;
+  background-color: rgba(40, 40, 80, 0.8);
+  color: white;
+  border: 1px solid rgba(100, 149, 237, 0.5);
+}
+
+.instructions {
+  margin-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 10px;
+}
+
+.instructions h4 {
+  color: #e74c3c;
+  margin-top: 0;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.instructions ul {
+  padding-left: 15px;
+  font-size: 12px;
+  margin: 0;
+}
+
+.instructions li {
+  margin-bottom: 4px;
+  opacity: 0.8;
+}
+
+/* Add styling for performance selector */
+.performance-control {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(100, 180, 255, 0.3);
+}
+
+.performance-control label {
+  display: block;
+  margin-bottom: 8px;
+  color: #64b5f6;
+  font-weight: 500;
+}
+
+.performance-select {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 4px;
+  background: rgba(25, 40, 60, 0.5);
+  color: white;
+  border: 1px solid rgba(100, 180, 255, 0.4);
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.performance-select:hover {
+  background: rgba(30, 50, 80, 0.6);
+  border-color: rgba(100, 180, 255, 0.7);
+}
+
+.performance-select:focus {
+  outline: none;
+  border-color: rgba(100, 180, 255, 0.9);
+  box-shadow: 0 0 5px rgba(100, 180, 255, 0.3);
+}
+
+.performance-select option {
+  background: rgba(20, 30, 50, 0.95);
+  color: white;
+  padding: 8px;
+}
+
+/* Responsive adjustments for control panel */
+@media (max-width: 960px) {
+  .control-panel {
+    width: auto;
+    max-width: 230px;
+  }
+}
+
+@media (max-width: 768px) {
+  .control-panel {
+    padding: 12px;
+    max-width: 200px;
+  }
+  
+  .control-panel h3 {
+    font-size: 1.1rem;
+    margin-top: 5px;
+  }
+  
+  .control-group {
+    margin-bottom: 12px;
+  }
+  
+  .control-button {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+  
+  .instructions {
+    display: none; /* Hide instructions on small screens */
+  }
+} 

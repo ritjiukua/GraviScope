@@ -1,3 +1,72 @@
+# Space Gravity Simulator
+
+An interactive 3D simulation of gravitational forces in space built with React and Three.js.
+
+## Features
+
+- Realistic physics-based gravity simulation using Newton's law of universal gravitation
+- Interactive 3D environment with realistic celestial bodies
+- Visual orbit paths showing the trajectory of celestial bodies
+- Real-time metrics and equations display
+- Controls to adjust simulation speed, pause/play, and add random celestial bodies
+- Select and focus on different celestial bodies to see their details
+
+## Technologies Used
+
+- React.js - Frontend framework
+- Three.js - 3D rendering library
+- React Three Fiber - React bindings for Three.js
+- React Three Drei - Helpful components for React Three Fiber
+
+## Physics Implementation
+
+The simulation implements the following gravitational physics concepts:
+
+- **Newton's Law of Universal Gravitation**: F = G × (m₁m₂) / r²
+- **Acceleration Due to Gravity**: a = G × M / r²
+- **Orbital Velocity**: v = √(G × M / r)
+- **Kepler's Third Law**: T² ∝ r³
+
+## Getting Started
+
+1. Clone the repository
+2. Install dependencies:
+```
+npm install
+```
+3. Start the development server:
+```
+npm start
+```
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
+
+## Controls
+
+- **Rotate**: Left-click drag
+- **Pan**: Right-click drag
+- **Zoom**: Scroll wheel
+- **Select Body**: Use the dropdown in the control panel
+- **Time Speed**: Adjust the slider to speed up or slow down the simulation
+- **Pause/Play**: Toggle simulation running state
+- **Add Random Body**: Add a new randomly generated celestial body to the simulation
+
+## Project Structure
+
+- `src/components/` - React components
+- `src/utils/` - Utility functions for physics calculations
+- `src/styles/` - CSS styles for components
+
+## Future Improvements
+
+- Add more celestial bodies from our solar system
+- Implement custom celestial body creation with user-defined parameters
+- Add visualization of gravitational fields
+- Improve performance for simulating more bodies simultaneously
+
+## License
+
+This project is licensed under the MIT License.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
